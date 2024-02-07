@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.example.ParkingLotTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2024-02-07T07:43:14" hostname="Govindan-ka-MacBook-Pro.local" time="0.018">
+<testsuite name="org.example.ParkingLotTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-02-07T08:03:57" hostname="Govindan-ka-MacBook-Pro.local" time="0.009">
   <properties/>
-  <testcase name="parkingLotOwnerPutsDownSignOnceLotIsNoLongerFull()" classname="org.example.ParkingLotTests" time="0.008"/>
-  <testcase name="canParkCarInEmptyParkingLot()" classname="org.example.ParkingLotTests" time="0.002"/>
-  <testcase name="driverCannotUnparkCarTheyDidNotPark()" classname="org.example.ParkingLotTests" time="0.001"/>
-  <testcase name="parkingLotOwnerPutsUpSignOnceLotIsFull()" classname="org.example.ParkingLotTests" time="0.001"/>
-  <testcase name="canParkMultipleCarsInParkingLotWithCapacity()" classname="org.example.ParkingLotTests" time="0.001"/>
-  <testcase name="canUnparkTheirCarFromParkingLot()" classname="org.example.ParkingLotTests" time="0.001"/>
-  <testcase name="cannotParkCarInFullParkingLot()" classname="org.example.ParkingLotTests" time="0.001"/>
-  <testcase name="driverCanParkTheirCarInEmptyParkingLot()" classname="org.example.ParkingLotTests" time="0.001"/>
+  <testcase name="parkingLotOwnerPutsDownSignOnceLotIsNoLongerFullWithRuleEngine()" classname="org.example.ParkingLotTests" time="0.009"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

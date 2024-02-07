@@ -12,11 +12,11 @@ public class ParkingLotOwner {
         return signIsUp;
     }
 
-    protected void parkingLotBecameFull() {
+    protected void putUpSign() {
         this.signIsUp = true;
     }
 
-    protected void parkingLotNoLongerFull() {
+    protected void putDownSign() {
         this.signIsUp = false;
     }
 

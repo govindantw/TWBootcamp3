@@ -63,8 +63,8 @@ public class ParkingLotTests {
     public void parkingLotOwnerPutsUpSignOnceLotIsFull() {
         ParkingLotOwner owner = new ParkingLotOwner();
         ParkingLot parkingLot = new ParkingLot(1,
-                owner::parkingLotBecameFull,
-                owner::parkingLotNoLongerFull);
+                owner::putUpSign,
+                owner::putDownSign);
         Car car = new Car();
         assertFalse(owner.hasPutUpSign());
         parkingLot.addCarIfPossible(car);
@@ -75,9 +75,24 @@ public class ParkingLotTests {
     public void parkingLotOwnerPutsDownSignOnceLotIsNoLongerFull() {
         ParkingLotOwner owner = new ParkingLotOwner();
         ParkingLot parkingLot = new ParkingLot(1,
-                owner::parkingLotBecameFull,
-                owner::parkingLotNoLongerFull);
+                owner::putUpSign,
+                owner::putDownSign);
         Car car = new Car();
+        assertFalse(owner.hasPutUpSign());
+        parkingLot.addCarIfPossible(car);
+        assertTrue(owner.hasPutUpSign());
+        parkingLot.removeCarIfPossible(car);
+        assertFalse(owner.hasPutUpSign());
+    }
+
+    @Test
+    public void parkingLotOwnerPutsDownSignOnceLotIsNoLongerFullWithRuleEngine() {
+        ParkingLotOwner owner = new ParkingLotOwner();
+        RuleEngine ruleEngine = new RuleEngine();
+        ParkingLot parkingLot = new ParkingLot(1,ruleEngine::evaluate,ruleEngine::evaluate);
+        Car car = new Car();
+        ruleEngine.addRule(new ParkingLotIsNotFullAndSignIsUp(parkingLot,owner));
+        ruleEngine.addRule(new ParkingLotIsFullAndSignIsNotUp(parkingLot,owner));
         assertFalse(owner.hasPutUpSign());
         parkingLot.addCarIfPossible(car);
         assertTrue(owner.hasPutUpSign());

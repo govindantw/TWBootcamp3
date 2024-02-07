@@ -30,7 +30,7 @@ public class ParkingLot {
         this(capacity,() -> {},() -> {});
     }
 
-    private boolean isAtMaxCapacity() {
+    public boolean isAtMaxCapacity() {
         return parkedCars.size() >= capacity;
     }
     private void checkParkedCarsAndNotify() {
