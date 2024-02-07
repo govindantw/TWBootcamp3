@@ -9,15 +9,15 @@ public class ParkingLot {
     private final int capacity;
     private final Set<Car> parkedCars;
 
-    Runnable parkingLotIsFullNotifier;
+    Runnable parkingLotNotifier;
     Runnable parkingLotIsNoLongerFullNotifier;
 
     public ParkingLot(int capacity,
-                      Runnable parkingLotIsFullNotifier,
+                      Runnable parkingLotNotifier,
                       Runnable parkingLotIsNoLongerFullNotifier) {
         this.capacity = capacity;
         this.parkedCars = new HashSet<>();
-        this.parkingLotIsFullNotifier = parkingLotIsFullNotifier;
+        this.parkingLotNotifier = parkingLotNotifier;
         this.parkingLotIsNoLongerFullNotifier = parkingLotIsNoLongerFullNotifier;
         this.signIsUp = false;
 
@@ -35,12 +35,7 @@ public class ParkingLot {
         return parkedCars.size() >= capacity;
     }
     private void checkParkedCarsAndNotify() {
-        if(signIsUp && !isAtMaxCapacity()) {
-            parkingLotIsNoLongerFullNotifier.run();
-        }
-        if(!signIsUp && isAtMaxCapacity()) {
-            parkingLotIsFullNotifier.run();
-        }
+        parkingLotNotifier.run();
     }
     public boolean addCarIfPossible(Car car) {
         if(hasPutUpSign()) {
@@ -64,10 +59,12 @@ public class ParkingLot {
 
     public void putUpSign() {
         this.signIsUp = true;
+        parkingLotNotifier.run();
     }
 
     public void putDownSign() {
         this.signIsUp = false;
+        parkingLotNotifier.run();
     }
 
     public boolean hasPutUpSign() {

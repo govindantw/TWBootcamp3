@@ -59,7 +59,7 @@ public class ParkingLotTests {
         assertFalse(driver2.unParkIfPossible(car1,parkingLot));
     }
 
-    @Test
+//    @Test
     public void parkingLotOwnerPutsUpSignOnceLotIsFull() {
         ParkingLotOwner owner = new ParkingLotOwner();
         ParkingLot parkingLot = new ParkingLot(1,
@@ -73,7 +73,7 @@ public class ParkingLotTests {
         assertTrue(parkingLot.hasPutUpSign());
     }
 
-    @Test
+//    @Test
     public void parkingLotOwnerPutsDownSignOnceLotIsNoLongerFull() {
         ParkingLotOwner owner = new ParkingLotOwner();
         ParkingLot parkingLot = new ParkingLot(1,
@@ -94,15 +94,24 @@ public class ParkingLotTests {
     public void parkingLotOwnerPutsDownSignOnceLotIsNoLongerFullWithRuleEngine() {
         RuleEngine ruleEngine = new RuleEngine();
         ParkingLot parkingLot = new ParkingLot(1,ruleEngine::evaluate);
+        ParkingLotSecurity security = new ParkingLotSecurity();
         ParkingLotOwner owner = new ParkingLotOwner(parkingLot::putUpSign, parkingLot::putDownSign);
         Car car = new Car();
+
+        ruleEngine.addRule(new SignIsUpAndCarsAreAllowed(parkingLot,security));
+        ruleEngine.addRule(new SignIsDownAndCarsAreNotAllowed(parkingLot,security));
+
         ruleEngine.addRule(new ParkingLotIsNotFullAndSignIsUp(parkingLot,owner));
         ruleEngine.addRule(new ParkingLotIsFullAndSignIsNotUp(parkingLot,owner));
         assertFalse(parkingLot.hasPutUpSign());
+        assertFalse(security.carsAreRedirected());
         parkingLot.addCarIfPossible(car);
         assertTrue(parkingLot.hasPutUpSign());
+        assertTrue(security.carsAreRedirected());
         parkingLot.removeCarIfPossible(car);
         assertFalse(parkingLot.hasPutUpSign());
+        assertFalse(security.carsAreRedirected());
     }
+
 
 }
