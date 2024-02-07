@@ -1,8 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ParkingLot {
@@ -12,16 +10,16 @@ public class ParkingLot {
 
     private boolean notifiedFull;
 
-    Runnable parkingLotIsFull;
-    Runnable parkingLotIsNoLongerFull;
+    Runnable parkingLotIsFullNotifier;
+    Runnable parkingLotIsNoLongerFullNotifier;
 
     public ParkingLot(int capacity,
-                      Runnable parkingLotIsFull,
-                      Runnable parkingLotIsNoLongerFull) {
+                      Runnable parkingLotIsFullNotifier,
+                      Runnable parkingLotIsNoLongerFullNotifier) {
         this.capacity = capacity;
         this.parkedCars = new HashSet<>();
-        this.parkingLotIsFull = parkingLotIsFull;
-        this.parkingLotIsNoLongerFull = parkingLotIsNoLongerFull;
+        this.parkingLotIsFullNotifier = parkingLotIsFullNotifier;
+        this.parkingLotIsNoLongerFullNotifier = parkingLotIsNoLongerFullNotifier;
         this.notifiedFull = false;
 
     }
@@ -30,16 +28,20 @@ public class ParkingLot {
         this(capacity,() -> {},() -> {});
     }
 
+    public ParkingLot(int capacity, Runnable notifier) {
+        this(capacity,notifier,notifier);
+    }
+
     public boolean isAtMaxCapacity() {
         return parkedCars.size() >= capacity;
     }
     private void checkParkedCarsAndNotify() {
         if(notifiedFull && !isAtMaxCapacity()) {
-            parkingLotIsNoLongerFull.run();
+            parkingLotIsNoLongerFullNotifier.run();
             notifiedFull = false;
         }
         if(!notifiedFull && isAtMaxCapacity()) {
-            parkingLotIsFull.run();
+            parkingLotIsFullNotifier.run();
             notifiedFull = true;
         }
     }
