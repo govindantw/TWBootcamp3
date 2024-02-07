@@ -7,6 +7,10 @@ public class ParkingLotOwner {
 
     public ParkingLotOwner() {
     }
+    public ParkingLotOwner(Runnable putUpSign, Runnable putDownSign) {
+        this.putUpSign = putUpSign;
+        this.putDownSign = putDownSign;
+    }
 
     public void setPutUpSign(Runnable putUpSign) {
         this.putUpSign = putUpSign;

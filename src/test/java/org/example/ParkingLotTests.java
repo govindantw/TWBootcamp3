@@ -92,11 +92,9 @@ public class ParkingLotTests {
 
     @Test
     public void parkingLotOwnerPutsDownSignOnceLotIsNoLongerFullWithRuleEngine() {
-        ParkingLotOwner owner = new ParkingLotOwner();
         RuleEngine ruleEngine = new RuleEngine();
         ParkingLot parkingLot = new ParkingLot(1,ruleEngine::evaluate);
-        owner.setPutDownSign(parkingLot::putDownSign);
-        owner.setPutUpSign(parkingLot::putUpSign);
+        ParkingLotOwner owner = new ParkingLotOwner(parkingLot::putUpSign, parkingLot::putDownSign);
         Car car = new Car();
         ruleEngine.addRule(new ParkingLotIsNotFullAndSignIsUp(parkingLot,owner));
         ruleEngine.addRule(new ParkingLotIsFullAndSignIsNotUp(parkingLot,owner));
