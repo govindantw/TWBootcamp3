@@ -2,22 +2,26 @@ package org.example;
 
 public class ParkingLotOwner {
 
-    private boolean signIsUp;
+    private Runnable putUpSign;
+    private Runnable putDownSign;
 
     public ParkingLotOwner() {
-        this.signIsUp = false;
     }
 
-    public boolean hasPutUpSign() {
-        return signIsUp;
+    public void setPutUpSign(Runnable putUpSign) {
+        this.putUpSign = putUpSign;
+    }
+
+    public void setPutDownSign(Runnable putDownSign) {
+        this.putDownSign = putDownSign;
     }
 
     protected void putUpSign() {
-        this.signIsUp = true;
+        putUpSign.run();
     }
 
     protected void putDownSign() {
-        this.signIsUp = false;
+        putDownSign.run();
     }
 
 }

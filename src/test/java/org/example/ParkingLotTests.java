@@ -65,10 +65,12 @@ public class ParkingLotTests {
         ParkingLot parkingLot = new ParkingLot(1,
                 owner::putUpSign,
                 owner::putDownSign);
+        owner.setPutDownSign(parkingLot::putDownSign);
+        owner.setPutUpSign(parkingLot::putUpSign);
         Car car = new Car();
-        assertFalse(owner.hasPutUpSign());
+        assertFalse(parkingLot.hasPutUpSign());
         parkingLot.addCarIfPossible(car);
-        assertTrue(owner.hasPutUpSign());
+        assertTrue(parkingLot.hasPutUpSign());
     }
 
     @Test
@@ -77,12 +79,15 @@ public class ParkingLotTests {
         ParkingLot parkingLot = new ParkingLot(1,
                 owner::putUpSign,
                 owner::putDownSign);
+        owner.setPutDownSign(parkingLot::putDownSign);
+        owner.setPutUpSign(parkingLot::putUpSign);
         Car car = new Car();
-        assertFalse(owner.hasPutUpSign());
+        owner.setPutDownSign(parkingLot::putDownSign);
+        assertFalse(parkingLot.hasPutUpSign());
         parkingLot.addCarIfPossible(car);
-        assertTrue(owner.hasPutUpSign());
+        assertTrue(parkingLot.hasPutUpSign());
         parkingLot.removeCarIfPossible(car);
-        assertFalse(owner.hasPutUpSign());
+        assertFalse(parkingLot.hasPutUpSign());
     }
 
     @Test
@@ -90,14 +95,16 @@ public class ParkingLotTests {
         ParkingLotOwner owner = new ParkingLotOwner();
         RuleEngine ruleEngine = new RuleEngine();
         ParkingLot parkingLot = new ParkingLot(1,ruleEngine::evaluate);
+        owner.setPutDownSign(parkingLot::putDownSign);
+        owner.setPutUpSign(parkingLot::putUpSign);
         Car car = new Car();
         ruleEngine.addRule(new ParkingLotIsNotFullAndSignIsUp(parkingLot,owner));
         ruleEngine.addRule(new ParkingLotIsFullAndSignIsNotUp(parkingLot,owner));
-        assertFalse(owner.hasPutUpSign());
+        assertFalse(parkingLot.hasPutUpSign());
         parkingLot.addCarIfPossible(car);
-        assertTrue(owner.hasPutUpSign());
+        assertTrue(parkingLot.hasPutUpSign());
         parkingLot.removeCarIfPossible(car);
-        assertFalse(owner.hasPutUpSign());
+        assertFalse(parkingLot.hasPutUpSign());
     }
 
 }

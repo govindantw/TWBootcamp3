@@ -12,7 +12,7 @@ public class ParkingLotIsFullAndSignIsNotUp implements Rule {
 
     @Override
     public boolean isMet() {
-        return parkingLot.isAtMaxCapacity() && ! owner.hasPutUpSign();
+        return parkingLot.isAtMaxCapacity() && ! parkingLot.hasPutUpSign();
     }
 
     @Override
