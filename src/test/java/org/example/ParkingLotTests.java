@@ -36,12 +36,19 @@ public class ParkingLotTests {
         Car car1 = new Car();
         ParkingLot parkingLot = new ParkingLot(1);
         assertTrue(parkingLot.addCarIfPossible(car1));
-
         assertTrue(parkingLot.removeCarIfPossible(car1));
     }
 
     @Test
-    public void driverCannotUnparkCarTheyDidnotPark() {
+    public void driverCanParkTheirCarInEmptyParkingLot(){
+        Driver driver = new Driver();
+        Car car1 = new Car();
+        ParkingLot parkingLot = new ParkingLot(1);
+        assertTrue(driver.parkIfPossible(car1,parkingLot));
+    }
+
+    @Test
+    public void driverCannotUnparkCarTheyDidNotPark() {
         Driver driver = new Driver();
         Car car1 = new Car();
         ParkingLot parkingLot = new ParkingLot(2);
@@ -50,6 +57,32 @@ public class ParkingLotTests {
         Car car2 = new Car();
         assertTrue(driver2.parkIfPossible(car2,parkingLot));
         assertFalse(driver2.unParkIfPossible(car1,parkingLot));
+    }
+
+    @Test
+    public void parkingLotOwnerPutsUpSignOnceLotIsFull() {
+        ParkingLotOwner owner = new ParkingLotOwner();
+        ParkingLot parkingLot = new ParkingLot(1,
+                owner::parkingLotBecameFull,
+                owner::parkingLotNoLongerFull);
+        Car car = new Car();
+        assertFalse(owner.hasPutUpSign());
+        parkingLot.addCarIfPossible(car);
+        assertTrue(owner.hasPutUpSign());
+    }
+
+    @Test
+    public void parkingLotOwnerPutsDownSignOnceLotIsNoLongerFull() {
+        ParkingLotOwner owner = new ParkingLotOwner();
+        ParkingLot parkingLot = new ParkingLot(1,
+                owner::parkingLotBecameFull,
+                owner::parkingLotNoLongerFull);
+        Car car = new Car();
+        assertFalse(owner.hasPutUpSign());
+        parkingLot.addCarIfPossible(car);
+        assertTrue(owner.hasPutUpSign());
+        parkingLot.removeCarIfPossible(car);
+        assertFalse(owner.hasPutUpSign());
     }
 
 }
