@@ -18,4 +18,8 @@ public class ParkingLot {
         }
         return false;
     }
+
+    public boolean removeCarIfPossible(Car car){
+       return parkedCars.remove(car);
+    }
 }
