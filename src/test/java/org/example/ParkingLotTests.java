@@ -92,6 +92,17 @@ public class ParkingLotTests {
     }
 
     @Test
+    public void valetParksCarInto1SingleCapacityEmptyParkingLotAndThenUnparks() {
+        ParkingLot parkingLot = new ParkingLotImpl(1);
+        Car car = new Car();
+        Valet valet = new Valet();
+        assertTrue(valet.parkIfPossible(car, parkingLot));
+        assertTrue(parkingLot.isAtMaxCapacity());
+        assertTrue(valet.unParkIfPossible(car,parkingLot));
+        assertFalse(parkingLot.isAtMaxCapacity());
+    }
+
+    @Test
     public void valetParks2CarsInto2SingleCapacityEmptyParkingLots() {
         ParkingLot parkingLot1 = new ParkingLotImpl(1);
         ParkingLot parkingLot2 = new ParkingLotImpl(1);
@@ -104,6 +115,27 @@ public class ParkingLotTests {
         assertTrue(valet.parkIfPossible(car2, parkingLot1, parkingLot2));
         assertTrue(parkingLot1.isAtMaxCapacity());
         assertTrue(parkingLot2.isAtMaxCapacity());
+    }
+
+    @Test
+    public void valetParks2CarsInto2SingleCapacityEmptyParkingLotsAndThenUnpark() {
+        ParkingLot parkingLot1 = new ParkingLotImpl(1);
+        ParkingLot parkingLot2 = new ParkingLotImpl(1);
+        Car car1 = new Car();
+        Car car2 = new Car();
+        Valet valet = new Valet();
+        assertTrue(valet.parkIfPossible(car1, parkingLot1, parkingLot2));
+        assertTrue(parkingLot1.isAtMaxCapacity());
+        assertFalse(parkingLot2.isAtMaxCapacity());
+        assertTrue(valet.parkIfPossible(car2, parkingLot1, parkingLot2));
+        assertTrue(parkingLot1.isAtMaxCapacity());
+        assertTrue(parkingLot2.isAtMaxCapacity());
+        assertTrue(valet.unParkIfPossible(car1,parkingLot1,parkingLot2));
+        assertFalse(parkingLot1.isAtMaxCapacity());
+        assertTrue(parkingLot2.isAtMaxCapacity());
+        assertTrue(valet.unParkIfPossible(car2,parkingLot1,parkingLot2));
+        assertFalse(parkingLot1.isAtMaxCapacity());
+        assertFalse(parkingLot2.isAtMaxCapacity());
     }
 
     @Test
