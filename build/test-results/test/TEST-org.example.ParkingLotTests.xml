@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.example.ParkingLotTests" tests="13" skipped="0" failures="0" errors="0" timestamp="2024-02-08T07:37:24" hostname="Govindan-ka-MacBook-Pro.local" time="0.025">
+<testsuite name="org.example.ParkingLotTests" tests="13" skipped="0" failures="0" errors="0" timestamp="2024-02-08T07:38:44" hostname="Govindan-ka-MacBook-Pro.local" time="0.025">
   <properties/>
   <testcase name="valetParksSameCarInto2SingleCapacityEmptyParkingLots()" classname="org.example.ParkingLotTests" time="0.01"/>
-  <testcase name="valetParksCarInto1SingleCapacityEmptyParkingLotAndThenUnparks()" classname="org.example.ParkingLotTests" time="0.001"/>
+  <testcase name="valetParksCarInto1SingleCapacityEmptyParkingLotAndThenUnparks()" classname="org.example.ParkingLotTests" time="0.0"/>
   <testcase name="valetParks2CarsInto2SingleCapacityEmptyParkingLots()" classname="org.example.ParkingLotTests" time="0.001"/>
   <testcase name="valetParks2CarsInto2SingleCapacityEmptyParkingLotsOnCheapestCost()" classname="org.example.ParkingLotTests" time="0.001"/>
   <testcase name="valetParksCarInto1SingleCapacityEmptyParkingLot()" classname="org.example.ParkingLotTests" time="0.0"/>
-  <testcase name="canParkCarInEmptyParkingLot()" classname="org.example.ParkingLotTests" time="0.001"/>
+  <testcase name="canParkCarInEmptyParkingLot()" classname="org.example.ParkingLotTests" time="0.0"/>
   <testcase name="driverCannotUnparkCarTheyDidNotPark()" classname="org.example.ParkingLotTests" time="0.001"/>
-  <testcase name="canParkMultipleCarsInParkingLotWithCapacity()" classname="org.example.ParkingLotTests" time="0.0"/>
-  <testcase name="canUnparkTheirCarFromParkingLot()" classname="org.example.ParkingLotTests" time="0.0"/>
-  <testcase name="parkingLotOwnerPutsDownSignOnceLotIsNoLongerFullWithRuleEngine()" classname="org.example.ParkingLotTests" time="0.002"/>
-  <testcase name="cannotParkCarInFullParkingLot()" classname="org.example.ParkingLotTests" time="0.001"/>
+  <testcase name="canParkMultipleCarsInParkingLotWithCapacity()" classname="org.example.ParkingLotTests" time="0.001"/>
+  <testcase name="canUnparkTheirCarFromParkingLot()" classname="org.example.ParkingLotTests" time="0.001"/>
+  <testcase name="parkingLotOwnerPutsDownSignOnceLotIsNoLongerFullWithRuleEngine()" classname="org.example.ParkingLotTests" time="0.001"/>
+  <testcase name="cannotParkCarInFullParkingLot()" classname="org.example.ParkingLotTests" time="0.0"/>
   <testcase name="driverCanParkTheirCarInEmptyParkingLot()" classname="org.example.ParkingLotTests" time="0.0"/>
   <testcase name="valetParks2CarsInto2SingleCapacityEmptyParkingLotsAndThenUnpark()" classname="org.example.ParkingLotTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>

@@ -12,14 +12,6 @@ public class ParkingLotOwner {
         this.putDownSign = putDownSign;
     }
 
-    public void setPutUpSign(Runnable putUpSign) {
-        this.putUpSign = putUpSign;
-    }
-
-    public void setPutDownSign(Runnable putDownSign) {
-        this.putDownSign = putDownSign;
-    }
-
     public void putUpSign() {
         putUpSign.run();
     }
