@@ -1,4 +1,7 @@
-package org.example;
+package org.example.rule;
+
+import org.example.ParkingLot;
+import org.example.ParkingLotOwner;
 
 public class ParkingLotIsNotFullAndSignIsUp implements Rule {
 

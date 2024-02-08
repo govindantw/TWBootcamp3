@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.rule.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -66,10 +67,8 @@ public class ParkingLotTests {
         ParkingLotSecurity security = new ParkingLotSecurity();
         ParkingLotOwner owner = new ParkingLotOwner(parkingLot::putUpSign, parkingLot::putDownSign);
         Car car = new Car();
-
         ruleEngine.addRule(new SignIsUpAndCarsAreAllowed(parkingLot,security));
         ruleEngine.addRule(new SignIsDownAndCarsAreNotAllowed(parkingLot,security));
-
         ruleEngine.addRule(new ParkingLotIsNotFullAndSignIsUp(parkingLot,owner));
         ruleEngine.addRule(new ParkingLotIsFullAndSignIsNotUp(parkingLot,owner));
         assertFalse(parkingLot.hasPutUpSign());

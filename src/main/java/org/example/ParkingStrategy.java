@@ -10,27 +10,27 @@ public enum ParkingStrategy {
         List<ParkingLot> sortedParkingLots = Arrays.stream(parkingLots).sorted((a, b) -> Integer.compare(a.getPricePerPark(), b.getPricePerPark())).collect(Collectors.toList());
         for (ParkingLot parkingLot : sortedParkingLots) {
             if (!parkingLot.hasPutUpSign()) {
-                return parkingLot.addCarIfPossible(car);
+                return parkingLot;
             }
         }
-        return false;
+        return null;
     })),
     NEAREST(((car, parkingLots) -> {
         for (ParkingLot parkingLot : parkingLots) {
             if (!parkingLot.hasPutUpSign()) {
-                return parkingLot.addCarIfPossible(car);
+                return parkingLot;
             }
         }
-        return false;
+        return null;
     }));
 
-    private final BiFunction<Car, ParkingLot[], Boolean> sortStrategy;
+    private final BiFunction<Car, ParkingLot[], ParkingLot> parkingLotSelectionStrategy;
 
-    public boolean parkIfPossible(Car car, ParkingLot... parkingLots) {
-        return sortStrategy.apply(car, parkingLots);
+    public ParkingLot parkIfPossible(Car car, ParkingLot... parkingLots) {
+        return parkingLotSelectionStrategy.apply(car, parkingLots);
     }
 
-    ParkingStrategy(BiFunction<Car, ParkingLot[], Boolean> sortStrategy) {
-        this.sortStrategy = sortStrategy;
+    ParkingStrategy(BiFunction<Car, ParkingLot[], ParkingLot> parkingLotSelectionStrategy) {
+        this.parkingLotSelectionStrategy = parkingLotSelectionStrategy;
     }
 }

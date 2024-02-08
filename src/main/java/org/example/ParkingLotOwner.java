@@ -20,11 +20,11 @@ public class ParkingLotOwner {
         this.putDownSign = putDownSign;
     }
 
-    protected void putUpSign() {
+    public void putUpSign() {
         putUpSign.run();
     }
 
-    protected void putDownSign() {
+    public void putDownSign() {
         putDownSign.run();
     }
 
