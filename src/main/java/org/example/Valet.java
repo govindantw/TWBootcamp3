@@ -4,8 +4,8 @@ public class Valet {
 
     public boolean parkIfPossible(Car car, ParkingLot... parkingLots) {
         for(ParkingLot parkingLot : parkingLots) {
-            if(parkingLot.addCarIfPossible(car)) {
-                return true;
+            if( ! parkingLot.hasPutUpSign()) {
+                return parkingLot.addCarIfPossible(car);
             }
         }
         return false;

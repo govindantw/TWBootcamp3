@@ -104,8 +104,15 @@ public class ParkingLotTests {
 
     @Test
     public void valetParks2CarsInto2SingleCapacityEmptyParkingLots() {
-        ParkingLot parkingLot1 = new ParkingLotImpl(1);
-        ParkingLot parkingLot2 = new ParkingLotImpl(1);
+        RuleEngine ruleEngine = new RuleEngine();
+        ParkingLot parkingLot1 = new ParkingLotImpl(1,ruleEngine::evaluate);
+        ParkingLot parkingLot2 = new ParkingLotImpl(1,ruleEngine::evaluate);
+        ParkingLotOwner owner1 = new ParkingLotOwner(parkingLot1::putUpSign, parkingLot1::putDownSign);
+        ParkingLotOwner owner2 = new ParkingLotOwner(parkingLot2::putUpSign, parkingLot2::putDownSign);
+        ruleEngine.addRule(new ParkingLotIsNotFullAndSignIsUp(parkingLot1,owner1));
+        ruleEngine.addRule(new ParkingLotIsFullAndSignIsNotUp(parkingLot1,owner1));
+        ruleEngine.addRule(new ParkingLotIsNotFullAndSignIsUp(parkingLot2,owner2));
+        ruleEngine.addRule(new ParkingLotIsFullAndSignIsNotUp(parkingLot2,owner2));
         Car car1 = new Car();
         Car car2 = new Car();
         Valet valet = new Valet();
@@ -119,8 +126,15 @@ public class ParkingLotTests {
 
     @Test
     public void valetParks2CarsInto2SingleCapacityEmptyParkingLotsAndThenUnpark() {
-        ParkingLot parkingLot1 = new ParkingLotImpl(1);
-        ParkingLot parkingLot2 = new ParkingLotImpl(1);
+        RuleEngine ruleEngine = new RuleEngine();
+        ParkingLot parkingLot1 = new ParkingLotImpl(1,ruleEngine::evaluate);
+        ParkingLot parkingLot2 = new ParkingLotImpl(1,ruleEngine::evaluate);
+        ParkingLotOwner owner1 = new ParkingLotOwner(parkingLot1::putUpSign, parkingLot1::putDownSign);
+        ParkingLotOwner owner2 = new ParkingLotOwner(parkingLot2::putUpSign, parkingLot2::putDownSign);
+        ruleEngine.addRule(new ParkingLotIsNotFullAndSignIsUp(parkingLot1,owner1));
+        ruleEngine.addRule(new ParkingLotIsFullAndSignIsNotUp(parkingLot1,owner1));
+        ruleEngine.addRule(new ParkingLotIsNotFullAndSignIsUp(parkingLot2,owner2));
+        ruleEngine.addRule(new ParkingLotIsFullAndSignIsNotUp(parkingLot2,owner2));
         Car car1 = new Car();
         Car car2 = new Car();
         Valet valet = new Valet();
@@ -140,18 +154,25 @@ public class ParkingLotTests {
 
     @Test
     public void valetParksSameCarInto2SingleCapacityEmptyParkingLots() {
-        ParkingLot parkingLot1 = new ParkingLotImpl(1);
-        ParkingLot parkingLot2 = new ParkingLotImpl(1);
-        ParkingLot parkingLot1WithOmnipotence
+        RuleEngine ruleEngine = new RuleEngine();
+        ParkingLot parkingLot1 = new ParkingLotImpl(1,ruleEngine::evaluate);
+        ParkingLot parkingLot2 = new ParkingLotImpl(1,ruleEngine::evaluate);
+        ParkingLotOwner owner1 = new ParkingLotOwner(parkingLot1::putUpSign, parkingLot1::putDownSign);
+        ParkingLotOwner owner2 = new ParkingLotOwner(parkingLot2::putUpSign, parkingLot2::putDownSign);
+        ruleEngine.addRule(new ParkingLotIsNotFullAndSignIsUp(parkingLot1,owner1));
+        ruleEngine.addRule(new ParkingLotIsFullAndSignIsNotUp(parkingLot1,owner1));
+        ruleEngine.addRule(new ParkingLotIsNotFullAndSignIsUp(parkingLot2,owner2));
+        ruleEngine.addRule(new ParkingLotIsFullAndSignIsNotUp(parkingLot2,owner2));
+        ParkingLot parkingLot1WithAwarenessOfOtherParkingLots
                 = new ParkingLotWithAwarenessOfOtherParkingLots(parkingLot1,parkingLot2);
-        ParkingLot parkingLot2WithOmnipotence
+        ParkingLot parkingLot2WithAwarenessOfOtherParkingLots
                 = new ParkingLotWithAwarenessOfOtherParkingLots(parkingLot2,parkingLot1);
         Car car = new Car();
         Valet valet = new Valet();
-        assertTrue(valet.parkIfPossible(car, parkingLot1WithOmnipotence));
-        assertFalse(valet.parkIfPossible(car, parkingLot2WithOmnipotence));
-        assertTrue(parkingLot1WithOmnipotence.isAtMaxCapacity());
-        assertFalse(parkingLot2WithOmnipotence.isAtMaxCapacity());
+        assertTrue(valet.parkIfPossible(car, parkingLot1WithAwarenessOfOtherParkingLots));
+        assertFalse(valet.parkIfPossible(car, parkingLot2WithAwarenessOfOtherParkingLots));
+        assertTrue(parkingLot1WithAwarenessOfOtherParkingLots.isAtMaxCapacity());
+        assertFalse(parkingLot2WithAwarenessOfOtherParkingLots.isAtMaxCapacity());
     }
 
 
