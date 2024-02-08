@@ -2,11 +2,9 @@ package org.example;
 
 public class ParkingLotOwner {
 
-    private Runnable putUpSign;
-    private Runnable putDownSign;
+    private final Runnable putUpSign;
+    private final Runnable putDownSign;
 
-    public ParkingLotOwner() {
-    }
     public ParkingLotOwner(Runnable putUpSign, Runnable putDownSign) {
         this.putUpSign = putUpSign;
         this.putDownSign = putDownSign;
