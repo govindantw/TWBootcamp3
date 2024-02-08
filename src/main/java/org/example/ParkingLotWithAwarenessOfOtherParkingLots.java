@@ -5,9 +5,15 @@ public class ParkingLotWithAwarenessOfOtherParkingLots implements ParkingLot {
     ParkingLot parkingLot;
     ParkingLot[] otherParkingLots;
 
+
     public ParkingLotWithAwarenessOfOtherParkingLots(ParkingLot parkingLot, ParkingLot... otherParkingLots) {
         this.parkingLot = parkingLot;
         this.otherParkingLots = otherParkingLots;
+    }
+
+    @Override
+    public int getPricePerPark(){
+        return parkingLot.getPricePerPark();
     }
 
     @Override

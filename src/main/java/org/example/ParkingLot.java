@@ -2,6 +2,7 @@ package org.example;
 
 public interface ParkingLot {
 
+    public int getPricePerPark();
     public boolean isAtMaxCapacity();
 
     public boolean addCarIfPossible(Car car);

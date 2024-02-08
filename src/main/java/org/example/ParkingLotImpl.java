@@ -9,19 +9,28 @@ public class ParkingLotImpl implements ParkingLot{
     private final int capacity;
     private final Set<Car> parkedCars;
 
+    private final int pricePerPark;
     Runnable parkingLotNotifier;
 
     public ParkingLotImpl(int capacity) {
         this(capacity,() -> {});
     }
 
-    public ParkingLotImpl(int capacity, Runnable notifier) {
+    public ParkingLotImpl(int capacity, Runnable notifier, int pricePerPark) {
         this.capacity = capacity;
         this.parkedCars = new HashSet<>();
         this.parkingLotNotifier = notifier;
         this.signIsUp = false;
+        this.pricePerPark = pricePerPark;
+    }
+    public ParkingLotImpl(int capacity, Runnable notifier){
+        this(capacity,notifier,0);
     }
 
+    @Override
+    public int getPricePerPark(){
+        return pricePerPark;
+    }
     public boolean isAtMaxCapacity() {
         return parkedCars.size() >= capacity;
     }
