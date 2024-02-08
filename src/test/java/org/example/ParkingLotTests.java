@@ -9,14 +9,14 @@ public class ParkingLotTests {
     @Test
     public void canParkCarInEmptyParkingLot() {
         Car car = new Car();
-        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingLot parkingLot = new ParkingLotImpl(1);
         assertTrue(parkingLot.addCarIfPossible(car));
     }
 
     @Test
     public void cannotParkCarInFullParkingLot() {
         Car car1 = new Car();
-        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingLot parkingLot = new ParkingLotImpl(1);
         assertTrue(parkingLot.addCarIfPossible(car1));
         Car car2 = new Car();
         assertFalse(parkingLot.addCarIfPossible(car2));
@@ -25,7 +25,7 @@ public class ParkingLotTests {
     @Test
     public void canParkMultipleCarsInParkingLotWithCapacity() {
         Car car1 = new Car();
-        ParkingLot parkingLot = new ParkingLot(2);
+        ParkingLot parkingLot = new ParkingLotImpl(2);
         assertTrue(parkingLot.addCarIfPossible(car1));
         Car car2 = new Car();
         assertTrue(parkingLot.addCarIfPossible(car2));
@@ -34,7 +34,7 @@ public class ParkingLotTests {
     @Test
     public void canUnparkTheirCarFromParkingLot(){
         Car car1 = new Car();
-        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingLot parkingLot = new ParkingLotImpl(1);
         assertTrue(parkingLot.addCarIfPossible(car1));
         assertTrue(parkingLot.removeCarIfPossible(car1));
     }
@@ -43,57 +43,26 @@ public class ParkingLotTests {
     public void driverCanParkTheirCarInEmptyParkingLot(){
         Driver driver = new Driver();
         Car car1 = new Car();
-        ParkingLot parkingLot = new ParkingLot(1);
-        assertTrue(driver.parkIfPossible(car1,parkingLot));
+        ParkingLot parkingLot = new ParkingLotImpl(1);
+        assertTrue(driver.parkIfPossible(car1, parkingLot));
     }
 
     @Test
     public void driverCannotUnparkCarTheyDidNotPark() {
         Driver driver = new Driver();
         Car car1 = new Car();
-        ParkingLot parkingLot = new ParkingLot(2);
-        assertTrue(driver.parkIfPossible(car1,parkingLot));
+        ParkingLot parkingLot = new ParkingLotImpl(2);
+        assertTrue(driver.parkIfPossible(car1, parkingLot));
         Driver driver2 = new Driver();
         Car car2 = new Car();
-        assertTrue(driver2.parkIfPossible(car2,parkingLot));
-        assertFalse(driver2.unParkIfPossible(car1,parkingLot));
-    }
-
-//    @Test
-    public void parkingLotOwnerPutsUpSignOnceLotIsFull() {
-        ParkingLotOwner owner = new ParkingLotOwner();
-        ParkingLot parkingLot = new ParkingLot(1,
-                owner::putUpSign,
-                owner::putDownSign);
-        owner.setPutDownSign(parkingLot::putDownSign);
-        owner.setPutUpSign(parkingLot::putUpSign);
-        Car car = new Car();
-        assertFalse(parkingLot.hasPutUpSign());
-        parkingLot.addCarIfPossible(car);
-        assertTrue(parkingLot.hasPutUpSign());
-    }
-
-//    @Test
-    public void parkingLotOwnerPutsDownSignOnceLotIsNoLongerFull() {
-        ParkingLotOwner owner = new ParkingLotOwner();
-        ParkingLot parkingLot = new ParkingLot(1,
-                owner::putUpSign,
-                owner::putDownSign);
-        owner.setPutDownSign(parkingLot::putDownSign);
-        owner.setPutUpSign(parkingLot::putUpSign);
-        Car car = new Car();
-        owner.setPutDownSign(parkingLot::putDownSign);
-        assertFalse(parkingLot.hasPutUpSign());
-        parkingLot.addCarIfPossible(car);
-        assertTrue(parkingLot.hasPutUpSign());
-        parkingLot.removeCarIfPossible(car);
-        assertFalse(parkingLot.hasPutUpSign());
+        assertTrue(driver2.parkIfPossible(car2, parkingLot));
+        assertFalse(driver2.unParkIfPossible(car1, parkingLot));
     }
 
     @Test
     public void parkingLotOwnerPutsDownSignOnceLotIsNoLongerFullWithRuleEngine() {
         RuleEngine ruleEngine = new RuleEngine();
-        ParkingLot parkingLot = new ParkingLot(1,ruleEngine::evaluate);
+        ParkingLot parkingLot = new ParkingLotImpl(1,ruleEngine::evaluate);
         ParkingLotSecurity security = new ParkingLotSecurity();
         ParkingLotOwner owner = new ParkingLotOwner(parkingLot::putUpSign, parkingLot::putDownSign);
         Car car = new Car();
@@ -111,6 +80,46 @@ public class ParkingLotTests {
         parkingLot.removeCarIfPossible(car);
         assertFalse(parkingLot.hasPutUpSign());
         assertFalse(security.carsAreRedirected());
+    }
+
+    @Test
+    public void valetParksCarInto1SingleCapacityEmptyParkingLot() {
+        ParkingLot parkingLot = new ParkingLotImpl(1);
+        Car car = new Car();
+        Valet valet = new Valet();
+        assertTrue(valet.parkIfPossible(car, parkingLot));
+        assertTrue(parkingLot.isAtMaxCapacity());
+    }
+
+    @Test
+    public void valetParks2CarsInto2SingleCapacityEmptyParkingLots() {
+        ParkingLot parkingLot1 = new ParkingLotImpl(1);
+        ParkingLot parkingLot2 = new ParkingLotImpl(1);
+        Car car1 = new Car();
+        Car car2 = new Car();
+        Valet valet = new Valet();
+        assertTrue(valet.parkIfPossible(car1, parkingLot1, parkingLot2));
+        assertTrue(parkingLot1.isAtMaxCapacity());
+        assertFalse(parkingLot2.isAtMaxCapacity());
+        assertTrue(valet.parkIfPossible(car2, parkingLot1, parkingLot2));
+        assertTrue(parkingLot1.isAtMaxCapacity());
+        assertTrue(parkingLot2.isAtMaxCapacity());
+    }
+
+    @Test
+    public void valetParksSameCarInto2SingleCapacityEmptyParkingLots() {
+        ParkingLot parkingLot1 = new ParkingLotImpl(1);
+        ParkingLot parkingLot2 = new ParkingLotImpl(1);
+        ParkingLot parkingLot1WithOmnipotence
+                = new ParkingLotWithAwarenessOfOtherParkingLots(parkingLot1,parkingLot2);
+        ParkingLot parkingLot2WithOmnipotence
+                = new ParkingLotWithAwarenessOfOtherParkingLots(parkingLot2,parkingLot1);
+        Car car = new Car();
+        Valet valet = new Valet();
+        assertTrue(valet.parkIfPossible(car, parkingLot1WithOmnipotence));
+        assertFalse(valet.parkIfPossible(car, parkingLot2WithOmnipotence));
+        assertTrue(parkingLot1WithOmnipotence.isAtMaxCapacity());
+        assertFalse(parkingLot2WithOmnipotence.isAtMaxCapacity());
     }
 
 
