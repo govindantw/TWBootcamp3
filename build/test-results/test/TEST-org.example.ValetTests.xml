@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.ValetTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-02-08T07:41:08" hostname="Govindan-ka-MacBook-Pro.local" time="0.018">
+  <properties/>
+  <testcase name="valetParksSameCarInto2SingleCapacityEmptyParkingLots()" classname="org.example.ValetTests" time="0.009"/>
+  <testcase name="valetParksCarInto1SingleCapacityEmptyParkingLotAndThenUnparks()" classname="org.example.ValetTests" time="0.001"/>
+  <testcase name="valetParks2CarsInto2SingleCapacityEmptyParkingLots()" classname="org.example.ValetTests" time="0.001"/>
+  <testcase name="valetParks2CarsInto2SingleCapacityEmptyParkingLotsOnCheapestCost()" classname="org.example.ValetTests" time="0.001"/>
+  <testcase name="valetParksCarInto1SingleCapacityEmptyParkingLot()" classname="org.example.ValetTests" time="0.0"/>
+  <testcase name="valetParks2CarsInto2SingleCapacityEmptyParkingLotsAndThenUnpark()" classname="org.example.ValetTests" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
