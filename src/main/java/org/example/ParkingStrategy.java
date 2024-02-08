@@ -7,7 +7,9 @@ import java.util.stream.Collectors;
 
 public enum ParkingStrategy {
     CHEAPEST(((car, parkingLots) -> {
-        List<ParkingLot> sortedParkingLots = Arrays.stream(parkingLots).sorted((a, b) -> Integer.compare(a.getPricePerPark(), b.getPricePerPark())).collect(Collectors.toList());
+        List<ParkingLot> sortedParkingLots = Arrays.stream(parkingLots)
+                .sorted((a, b) -> Integer.compare(a.getPricePerPark(), b.getPricePerPark()))
+                .toList();
         for (ParkingLot parkingLot : sortedParkingLots) {
             if (!parkingLot.hasPutUpSign()) {
                 return parkingLot;
